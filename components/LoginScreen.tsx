@@ -1,8 +1,30 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
+import * as WebBrowser from 'expo-web-browser'
 import { Colors } from '@/constants/Colors'
+import { useWarmUpBrowser } from '../hooks/useWarmUpBrowser'
+import { useOAuth } from '@clerk/clerk-expo'
 
+WebBrowser.maybeCompleteAuthSession()
 export default function LoginScreen() {
+    useWarmUpBrowser()
+
+    const { startOAuthFlow } = useOAuth({ strategy: "oauth_google"})
+
+    const onPress = React.useCallback(async () => {
+        try{
+            const { createdSessionId, signIn, signUp, setActive } = await startOAuthFlow()
+
+            if(createdSessionId){
+                setActive({ session: createdSessionId})
+            } else {
+                // Use signIn or signUp for next steps such as WFA
+            }
+        } catch(err) {
+            console.error("OAuth error", err)
+        }
+        
+    }, [])
   return (
     <View>
         <View style={styles.viewOne}>
@@ -13,7 +35,7 @@ export default function LoginScreen() {
                 <Text style={{color: Colors.PRIMARY, }}> Comminity Business Directory</Text> App
             </Text>
             <Text style={{fontSize: 15, fontFamily: 'outfit', textAlign: 'center', marginVertical: 15, color: Colors.GRAY}}>Find your favorite business near and post your own business</Text>
-            <TouchableOpacity style={styles.btn}>
+            <TouchableOpacity style={styles.btn} onPress={onPress}>
                 <Text style={{textAlign: 'center',
                     color: '#fff', fontFamily: 'outfit-bold', fontWeight: '700', fontSize: 16
                 }}>Let's Get Started</Text>
