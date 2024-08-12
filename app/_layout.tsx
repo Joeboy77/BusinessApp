@@ -26,6 +26,10 @@ export default function RootLayout() {
     return null;
   }
 
+  useFonts({
+    'outfit': require('../assets/fonts/Outfit-Regular.ttf')
+  })
+
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
