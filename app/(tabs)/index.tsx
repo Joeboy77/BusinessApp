@@ -2,6 +2,7 @@ import Slider from '../../components/Home/Slider';
 import Header from '../../components/Home/Header';
 import { View,Text, StyleSheet, } from 'react-native';
 import Category from '@/components/Home/Category';
+import PopularBusiness from '@/components/Home/PopularBusiness';
 
 
 export default function HomeScreen() {
@@ -10,6 +11,7 @@ export default function HomeScreen() {
       <Header />
       <Slider />
       <Category />
+      <PopularBusiness />
     </View>
   );
 }

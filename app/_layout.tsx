@@ -48,7 +48,7 @@ export default function RootLayout() {
 
   useFonts({
     'outfit': require('../assets/fonts/Outfit-Regular.ttf'),
-    'outifit-meduim': require('../assets/fonts/Outfit-Medium.ttf'),
+    'outfit-meduim': require('../assets/fonts/Outfit-Medium.ttf'),
     'outfit-bold': require('../assets/fonts/Outfit-Bold.ttf')
   })
 
