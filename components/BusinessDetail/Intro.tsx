@@ -1,15 +1,27 @@
-import { View, Text, Image, StyleSheet } from 'react-native'
-import React from 'react'
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import React, { useEffect } from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useRouter } from 'expo-router';
+import { ThemedView } from '../ThemedView';
+import { ThemedText } from '../ThemedText';
 
 export default function Intro({business}) {
+
+  const router = useRouter()
+
   return (
     <View>
         <View style={styles.sub}>
-             <Ionicons name="arrow-back-circle" size={40} color="black" />
-             <Ionicons name="heart-outline" size={40} color="white" />
+          <TouchableOpacity onPress={() =>router.back()}>
+            <Ionicons name="arrow-back-circle" size={40} color="black" />
+          </TouchableOpacity>
+             <Ionicons name="heart-outline" size={40} color="black" />
         </View>
-      <Image source={{uri:business.imageUrl}} style={styles.image}/>
+      <Image source={{uri:business?.imageUrl}} style={styles.image}/>
+      <View style={{padding: 20, marginTop: -10, borderTopLeftRadius: 25, borderTopRightRadius: 25, backgroundColor: '#151718'}}>
+        <Text style={{color: '#fff', fontSize: 20, fontFamily: 'outfit-bold'}}>{business?.name}</Text>
+        <Text style={{color: '#fff', fontFamily: 'outfit', fontSize: 18}}>{business?.address}</Text>
+      </View>
     </View>
   )
 }

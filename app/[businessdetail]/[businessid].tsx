@@ -6,6 +6,7 @@ import { collection, doc, getDoc } from '@firebase/firestore'
 import {db} from '../../configs/FirebaseConfig'
 import { Colors } from '@/constants/Colors'
 import Intro from '@/components/BusinessDetail/Intro'
+import ActionButton from '@/components/BusinessDetail/ActionButton'
 
 export default function BusinessDetail() {
     const [business, setBusiness] = useState()
@@ -34,6 +35,7 @@ export default function BusinessDetail() {
         <ActivityIndicator size={'large'} color={Colors.PRIMARY} style={{marginTop: '70%'}}/>:
         <View>
             <Intro business={business}/>
+            <ActionButton business={business}/>
         </View>
         }
       
