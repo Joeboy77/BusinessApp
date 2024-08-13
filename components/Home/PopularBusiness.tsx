@@ -1,11 +1,12 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Colors } from '@/constants/Colors'
 import { collection, getDocs, limit, query } from 'firebase/firestore'
 import { db } from '@/configs/FirebaseConfig'
+import PopularBusinessCard from './PopularBusinessCard'
 
 
-export default function PopularBusiness() {
+export default function PopularBusiness({}) {
 
     const [businessList, setBusinessList] = useState([])
 
@@ -30,6 +31,14 @@ export default function PopularBusiness() {
         </Text>
         <Text style={{color: Colors.PRIMARY, fontFamily: 'outfit-meduim'}}>View all</Text>
       </View>
+      <FlatList 
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      data={businessList}
+      renderItem={({item, index}) =>(
+        <PopularBusinessCard business={item} key={index}/>
+      )}
+      />
     </View>
   )
 }
