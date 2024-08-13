@@ -35,7 +35,7 @@ export default function ActionButton({business}) {
         },
     ]
 
-    const OnPressHandle = (item) => {
+    const OnPressHandle = (item:any) => {
         if(item.name== 'share'){
             return
         }

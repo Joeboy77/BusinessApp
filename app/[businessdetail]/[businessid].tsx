@@ -1,4 +1,4 @@
-import { View, Text, ActivityIndicator } from 'react-native'
+import { View, Text, ActivityIndicator, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useLocalSearchParams } from 'expo-router'
 import { ThemedText } from '@/components/ThemedText'
@@ -7,6 +7,8 @@ import {db} from '../../configs/FirebaseConfig'
 import { Colors } from '@/constants/Colors'
 import Intro from '@/components/BusinessDetail/Intro'
 import ActionButton from '@/components/BusinessDetail/ActionButton'
+import About from '@/components/BusinessDetail/About'
+import Reviews from '@/components/BusinessDetail/Reviews'
 
 export default function BusinessDetail() {
     const [business, setBusiness] = useState()
@@ -33,10 +35,12 @@ export default function BusinessDetail() {
     <View>
         {loading?
         <ActivityIndicator size={'large'} color={Colors.PRIMARY} style={{marginTop: '70%'}}/>:
-        <View>
+        <ScrollView>
             <Intro business={business}/>
             <ActionButton business={business}/>
-        </View>
+            <About business={business}/>
+            <Reviews business={business}/>
+        </ScrollView>
         }
       
     </View>
