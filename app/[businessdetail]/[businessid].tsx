@@ -5,6 +5,7 @@ import { ThemedText } from '@/components/ThemedText'
 import { collection, doc, getDoc } from '@firebase/firestore'
 import {db} from '../../configs/FirebaseConfig'
 import { Colors } from '@/constants/Colors'
+import Intro from '@/components/BusinessDetail/Intro'
 
 export default function BusinessDetail() {
     const [business, setBusiness] = useState()
@@ -32,7 +33,7 @@ export default function BusinessDetail() {
         {loading?
         <ActivityIndicator size={'large'} color={Colors.PRIMARY} style={{marginTop: '70%'}}/>:
         <View>
-            <ThemedText>{businessid}</ThemedText>
+            <Intro business={business}/>
         </View>
         }
       
