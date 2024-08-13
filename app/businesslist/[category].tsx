@@ -4,6 +4,7 @@ import { useLocalSearchParams, useNavigation } from 'expo-router'
 import { collection, getDoc, getDocs, query, where } from 'firebase/firestore'
 import { db } from '@/configs/FirebaseConfig'
 import BusinessListCard from '@/components/BusinessList/BusinessListCard'
+import { ThemedText } from '@/components/ThemedText'
 
 export default function BusinessListByCategory() {
   const [businesslist, setBusinessList] = useState([])
@@ -30,7 +31,7 @@ export default function BusinessListByCategory() {
     })
   }
   return (
-    <View>
+     <View>
         <FlatList 
         data={businesslist}
         renderItem={({item, index}) => (
