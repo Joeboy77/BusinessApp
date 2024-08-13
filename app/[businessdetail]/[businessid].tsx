@@ -35,7 +35,7 @@ export default function BusinessDetail() {
     <View>
         {loading?
         <ActivityIndicator size={'large'} color={Colors.PRIMARY} style={{marginTop: '70%'}}/>:
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
             <Intro business={business}/>
             <ActionButton business={business}/>
             <About business={business}/>
