@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
         gap: 10,
         alignItems: 'center',
         padding: 10,
-        borderWidth: 1,
+        borderWidth: 0.5,
         borderColor: Colors.GRAY,
         borderRadius: 15,
         marginTop: 10
