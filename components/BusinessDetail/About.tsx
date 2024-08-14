@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     container: {
         padding: 20,
         backgroundColor: '#151718',
-        height: '100%'
+        width: '100%'
     },
     text: {
         fontFamily: 'outfit-medium',

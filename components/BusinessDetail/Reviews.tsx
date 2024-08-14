@@ -6,6 +6,7 @@ import { ThemedText } from '../ThemedText'
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore'
 import { db } from '@/configs/FirebaseConfig'
 import { useUser } from '@clerk/clerk-expo'
+import { ThemedView } from '../ThemedView'
 
 export default function Reviews({business}) {
 
@@ -32,10 +33,11 @@ export default function Reviews({business}) {
       <ThemedText style={styles.reviews}>Reviews</ThemedText>
       <View>
         <Rating 
+        tintColor='black'
         showRating={false}
-        imageSize={20}
+        imageSize={30}
         onFinishRating={(rating:any) => setRating(rating)}
-        style={{paddingVertical: 10}}
+        style={{paddingVertical: 20}}
         />
         <TextInput
         onChangeText={(value) => setUserInput(value)}
@@ -43,11 +45,11 @@ export default function Reviews({business}) {
         numberOfLines={4}
         style={styles.textInput}
          />
-         <TouchableOpacity style={styles.submit} disabled={!userInput} onPress={onSubmit()}>
+         <TouchableOpacity style={styles.submit} disabled={!userInput} onPress={() => onSubmit()}>
             <ThemedText style={styles.submitText}>Submit</ThemedText>
          </TouchableOpacity>
       </View>
-      <View >
+      <View style={{marginTop: 30}} >
         {
             business?.reviews?.map((item: any, index: any) =>(
                 <View style={styles.revMain}>
@@ -56,12 +58,15 @@ export default function Reviews({business}) {
                     />
                     <View style={styles.userReview}>
                         <Rating
+                        readonly
+                        tintColor='black'
+                        ratingBackgroundColor='black'
                         imageSize={20}
                         ratingCount={item.rating}
                         style={{alignItems: 'flex-start'}}
                          />
-                        <Text style={{fontFamily: 'outfit-meduim'}}>{item?.userName}</Text>
-                        <Text>{item?.comment}</Text>
+                        <ThemedText style={{fontFamily: 'outfit-meduim'}}>{item?.userName}</ThemedText>
+                        <ThemedText>{item?.comment}</ThemedText>
                     </View>
                 </View>
             ))
@@ -81,10 +86,10 @@ const styles = StyleSheet.create({
     },
     textInput: {
         borderWidth: 1,
-        padding: 10,
+        padding: 40,
         borderRadius: 10,
         borderColor: Colors.GRAY,
-        textAlignVertical: 'top'
+        color: Colors.GRAY
     },
     submit: {
        padding: 10,
@@ -98,7 +103,8 @@ const styles = StyleSheet.create({
     },
     userReview: {
         display: 'flex',
-        gap: 5
+        gap: 5,
+        marginTop: 30,
     },
     revMain: {
         display: 'flex',
