@@ -1,11 +1,13 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Colors } from '@/constants/Colors'
 import star from '../../assets/images/star.png'
+import { useRouter } from 'expo-router'
 
 export default function PopularBusinessCard({business}) {
+  const router = useRouter()
   return (
-    <View style={{marginLeft: 20, padding: 10, backgroundColor: '#4545', borderRadius: 15}}>
+    <TouchableOpacity onPress={() =>router.push('/businessdetail/'+business?.id)} style={{marginLeft: 20, padding: 10, backgroundColor: '#4545', borderRadius: 15}}>
       <Image source={{uri:business?.imageUrl}} style={{
         width: 200,
         height: 130,
@@ -23,6 +25,6 @@ export default function PopularBusinessCard({business}) {
             <Text style={{fontFamily: 'outfit', backgroundColor: Colors.PRIMARY, color: '#fff', padding: 3, fontSize: 10, borderRadius: 5}}>{business.category}</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }

@@ -35,14 +35,14 @@ export default function ActionButton({business}) {
         },
     ]
 
-    const OnPressHandle = (item:any) => {
+    const OnPressHandle = (item) => {
         if(!item.name== 'Share'){
             Share.share({
                 message: business?.name+"\n Address:"+ business?.address+"\n Find more details on Business App by Joseph!"
             })
             return
         }
-        Linking.openURL(item.url)
+        Linking.openURL(item?.url)
     }
   return (
     <View style={styles.container}>
