@@ -10,6 +10,7 @@ import ActionButton from '@/components/BusinessDetail/ActionButton'
 import About from '@/components/BusinessDetail/About'
 import Reviews from '@/components/BusinessDetail/Reviews'
 
+
 export default function BusinessDetail() {
     const [business, setBusiness] = useState()
     const [loading, setLoading] = useState(false)
