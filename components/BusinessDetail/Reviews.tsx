@@ -1,13 +1,31 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ToastAndroid } from 'react-native'
 import React, { useState } from 'react'
 import { Rating } from 'react-native-ratings'
 import { Colors } from '@/constants/Colors'
 import { ThemedText } from '../ThemedText'
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore'
+import { db } from '@/configs/FirebaseConfig'
+import { useUser } from '@clerk/clerk-expo'
 
-export default function Reviews( {business}) {
+export default function Reviews({business}) {
 
     const [rating, setRating] = useState(4)
     const [userInput, setUserInput] = useState('')
+    const {user} = useUser()
+
+    const onSubmit = async() => {
+        const docRef = doc(db, 'BusinessList', business?.id)
+        await updateDoc(docRef, {
+            reviews: arrayUnion({
+                rating: rating,
+                comment: userInput,
+                userName: user?.fullName,
+                userImage: user?.imageUrl
+            })
+        })
+
+        ToastAndroid.show('Comment added successfully!', ToastAndroid.BOTTOM)
+    }
   return (
     <View style={styles.container}>
       <ThemedText style={styles.reviews}>Reviews</ThemedText>
@@ -24,7 +42,7 @@ export default function Reviews( {business}) {
         numberOfLines={4}
         style={styles.textInput}
          />
-         <TouchableOpacity style={styles.submit} disabled={!userInput}>
+         <TouchableOpacity style={styles.submit} disabled={!userInput} onPress={onSubmit()}>
             <ThemedText style={styles.submitText}>Submit</ThemedText>
          </TouchableOpacity>
       </View>

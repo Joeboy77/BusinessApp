@@ -25,7 +25,7 @@ export default function BusinessDetail() {
         const docRef:any = doc(db, 'BusinessList', businessid)
         const docSnap= await getDoc(docRef)
         if(docSnap.exists()) {
-            setBusiness(docSnap.data())
+            setBusiness({id:docSnap.id, ...docSnap.data()})
             setLoading(false)
         } else {
             console.log("No such document");
