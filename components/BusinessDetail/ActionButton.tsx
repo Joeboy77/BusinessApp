@@ -31,16 +31,16 @@ export default function ActionButton({business}) {
             id: 4,
             name: 'Share',
             icon: ShareIcon,
-            url: 'tel:'+business?.website
+            url: business?.website
         },
     ]
 
     const OnPressHandle = (item) => {
-        if(!item.name== 'Share'){
+        if(item.name== 'Share'){
             Share.share({
                 message: business?.name+"\n Address:"+ business?.address+"\n Find more details on Business App by Joseph!"
             })
-            return
+            return;
         }
         Linking.openURL(item?.url)
     }
