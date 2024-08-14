@@ -5,8 +5,23 @@ import { ThemedText } from '@/components/ThemedText';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Colors } from '@/constants/Colors';
 import Category from '@/components/Home/Category';
+import { collection, doc, getDocs, query, where } from 'firebase/firestore';
+import { db } from '@/configs/FirebaseConfig';
+import { useState } from 'react';
 
 export default function explore() {
+
+  const [businessList, setBusinessList] = useState([])
+
+  const GetBusinessByCategory = async(category:any) => {
+    const q = query(collection(db, 'BusinessList'), where('category','==',category))
+    const querySnapshot = await getDocs(q)
+    querySnapshot.forEach((doc) => {
+      console.log(doc.data());
+      
+    })
+  }
+
   return (
       <View style={styles.container}>
         <ThemedText style={styles.hero}>Explore More</ThemedText>
@@ -14,7 +29,8 @@ export default function explore() {
         <Ionicons name="search" size={24} color={Colors.PRIMARY} />
         <TextInput placeholder='Search...' returnKeyType='search'/>
       </View>
-      <Category explore={true}/>
+      <Category explore={true} onCategorySelect={(category:any) => GetBusinessByCategory(category)
+      }/>
       </View> 
   );
 }
