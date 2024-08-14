@@ -17,10 +17,11 @@ export default function profile() {
 }
 const styles = StyleSheet.create({
   container: {
-    padding: 50
+    
   },
   profileText: {
     fontFamily: 'outfit-bold',
-    fontSize: 25
+    fontSize: 25,
+    padding: 50
   }
 })
