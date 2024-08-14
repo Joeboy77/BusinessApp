@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ToastAndroid } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ToastAndroid, FlatList, Image } from 'react-native'
 import React, { useState } from 'react'
 import { Rating } from 'react-native-ratings'
 import { Colors } from '@/constants/Colors'
@@ -20,7 +20,8 @@ export default function Reviews({business}) {
                 rating: rating,
                 comment: userInput,
                 userName: user?.fullName,
-                userImage: user?.imageUrl
+                userImage: user?.imageUrl,
+                userEmail: user?.primaryEmailAddress?.emailAddress
             })
         })
 
@@ -45,6 +46,26 @@ export default function Reviews({business}) {
          <TouchableOpacity style={styles.submit} disabled={!userInput} onPress={onSubmit()}>
             <ThemedText style={styles.submitText}>Submit</ThemedText>
          </TouchableOpacity>
+      </View>
+      <View >
+        {
+            business?.reviews?.map((item: any, index: any) =>(
+                <View style={styles.revMain}>
+                    <Image source={{uri:item?.userImage}}
+                    style={{width: 50, height: 50, borderRadius: 99}}
+                    />
+                    <View style={styles.userReview}>
+                        <Rating
+                        imageSize={20}
+                        ratingCount={item.rating}
+                        style={{alignItems: 'flex-start'}}
+                         />
+                        <Text style={{fontFamily: 'outfit-meduim'}}>{item?.userName}</Text>
+                        <Text>{item?.comment}</Text>
+                    </View>
+                </View>
+            ))
+        }
       </View>
     </View>
   )
@@ -74,5 +95,20 @@ const styles = StyleSheet.create({
     submitText: {
         fontFamily: 'outfit',
         textAlign: 'center'
+    },
+    userReview: {
+        display: 'flex',
+        gap: 5
+    },
+    revMain: {
+        display: 'flex',
+        flexDirection: 'row',
+        gap: 10,
+        alignItems: 'center',
+        padding: 10,
+        borderWidth: 1,
+        borderColor: Colors.GRAY,
+        borderRadius: 15,
+        marginTop: 10
     }
 })
