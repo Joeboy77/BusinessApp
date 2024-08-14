@@ -48,6 +48,11 @@ const styles = StyleSheet.create({
     submit: {
        padding: 10,
        backgroundColor: Colors.PRIMARY,
-       borderRadius: 6
+       borderRadius: 6,
+       marginTop: 10,
+    },
+    submitText: {
+        fontFamily: 'outfit',
+        textAlign: 'center'
     }
 })
