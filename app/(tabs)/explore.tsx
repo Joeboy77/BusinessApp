@@ -8,17 +8,19 @@ import Category from '@/components/Home/Category';
 import { collection, doc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/configs/FirebaseConfig';
 import { useState } from 'react';
+import ExploreBusinessList from '@/components/Explore/ExploreBusinessList';
 
 export default function explore() {
 
   const [businessList, setBusinessList] = useState([])
 
   const GetBusinessByCategory = async(category:any) => {
+    setBusinessList([])
     const q = query(collection(db, 'BusinessList'), where('category','==',category))
     const querySnapshot = await getDocs(q)
     querySnapshot.forEach((doc) => {
       console.log(doc.data());
-      
+      setBusinessList(prev => [...prev, {id:doc.id, ...doc.data()}])
     })
   }
 
@@ -31,6 +33,7 @@ export default function explore() {
       </View>
       <Category explore={true} onCategorySelect={(category:any) => GetBusinessByCategory(category)
       }/>
+      <ExploreBusinessList businessList={businessList}/>
       </View> 
   );
 }
