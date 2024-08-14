@@ -7,6 +7,7 @@ import { ThemedText } from '../ThemedText'
 export default function Reviews( {business}) {
 
     const [rating, setRating] = useState(4)
+    const [userInput, setUserInput] = useState('')
   return (
     <View style={styles.container}>
       <ThemedText style={styles.reviews}>Reviews</ThemedText>
@@ -18,11 +19,12 @@ export default function Reviews( {business}) {
         style={{paddingVertical: 10}}
         />
         <TextInput
+        onChangeText={(value) => setUserInput(value)}
         placeholder='Write you comment'
         numberOfLines={4}
         style={styles.textInput}
          />
-         <TouchableOpacity style={styles.submit}>
+         <TouchableOpacity style={styles.submit} disabled={!userInput}>
             <ThemedText style={styles.submitText}>Submit</ThemedText>
          </TouchableOpacity>
       </View>
