@@ -20,7 +20,7 @@ export default function AddBusiness() {
   const [contact, setContact] = useState()
   const [website, setWebsite] = useState()
   const [about, setAbout] = useState()
-  const [category, setCategory] = useState(null)
+  const [category, setCategory] = useState()
   const [loading, setLoading] = useState(false)
 
   const {user} = useUser()
@@ -78,7 +78,7 @@ export default function AddBusiness() {
   }
 
   const saveBusinessDetail = async(imageUrl) => {
-    await setDoc(doc(db,'BusinessList',Date.now.toString()), {
+    await setDoc(doc(db,'BusinessList',Date.now().toString()), {
       name: name,
       address: address,
       contact: contact,
