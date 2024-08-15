@@ -20,7 +20,7 @@ export default function AddBusiness() {
   const [contact, setContact] = useState()
   const [website, setWebsite] = useState()
   const [about, setAbout] = useState()
-  const [category, setCategory] = useState(null)
+  const [category, setCategory] = useState()
   const [loading, setLoading] = useState(false)
 
   const {user} = useUser()
@@ -145,6 +145,7 @@ export default function AddBusiness() {
           onValueChange ={(value) => setCategory(value)
           }
           items ={categoryList}
+          
            />
          </View>
       </View>
