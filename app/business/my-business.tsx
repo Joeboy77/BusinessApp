@@ -5,11 +5,22 @@ import { useUser } from '@clerk/clerk-expo'
 import { collection, doc, getDocs, query, where } from 'firebase/firestore'
 import { db } from '@/configs/FirebaseConfig'
 import BusinessListCard from '@/components/Explore/BusinessListCard'
+import { useNavigation } from 'expo-router'
 
 export default function MyBusiness() {
     const {user} = useUser()
+    const navigation = useNavigation()
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerShown: true,
+            headerTitle: 'My Business'
+        })
+        user&&GetUserBus()
+    }, [user])
 
     const [businessList, setBusinessList] = useState([])
+    const [loading, setLoading] = useState(false)
 
 
     useEffect(() => {
@@ -17,6 +28,7 @@ export default function MyBusiness() {
     }, [user])
 
     const GetUserBus = async() => {
+        setLoading(true)
         setBusinessList([])
         const q = query(collection(db, 'BusinessList'),where('userEmail', '==', user?.primaryEmailAddress?.emailAddress))
 
@@ -26,11 +38,14 @@ export default function MyBusiness() {
             console.log(doc.data());
             setBusinessList(prev =>[...prev, {id:doc.id,...doc.data()}])
         })
+        setLoading(false)
     }
   return (
     <View style={styles.container}>
       <ThemedText style={{fontFamily: 'outfit-bold', fontSize: 25}}> My Business</ThemedText>
       <FlatList
+      onRefresh={GetUserBus}
+      refreshing={loading}
       data={businessList}
       renderItem={({item, index}) =>(
         <BusinessListCard business={item} key={index}/>

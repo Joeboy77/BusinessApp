@@ -1,14 +1,18 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity, Alert, ToastAndroid } from 'react-native'
 import React, { useEffect } from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
 import { ThemedView } from '../ThemedView';
 import { ThemedText } from '../ThemedText';
 import { Colors } from '@/constants/Colors';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { db } from '@/configs/FirebaseConfig';
+import { useUser } from '@clerk/clerk-expo';
 
 export default function Intro({business}) {
 
   const router = useRouter()
+  const {user} =useUser()
 
   const onDelete = () => {
     Alert.alert('Do you want to delete?', 'Are you sure you want delete?.', [
@@ -19,9 +23,16 @@ export default function Intro({business}) {
       {
         text: 'Delete',
         style: 'destructive',
-        onPress: () => deleteBusiness
+        onPress: () => deleteBusiness()
       }
     ])
+  }
+
+  const deleteBusiness = async() => {
+    console.log('Business Deleted');
+    await deleteDoc(doc(db, 'BusinessList', business?.id))
+    router.back()
+    ToastAndroid.show('Business Deleted successfully!', ToastAndroid.LONG)
   }
 
   return (
@@ -39,9 +50,9 @@ export default function Intro({business}) {
         </Text>
         <Text style={{color: '#fff', fontFamily: 'outfit', fontSize: 18}}>{business?.address}</Text>
       </View>
-      <TouchableOpacity onPress={()=>onDelete()}>
+    {user?.primaryEmailAddress?.emailAddress == business?.userEmail && <TouchableOpacity onPress={()=>onDelete()}>
       <Ionicons name="trash-outline" size={24} color="red" style={{backgroundColor: Colors.BACKGROUND}}/>
-      </TouchableOpacity>
+      </TouchableOpacity>}
       </View>
     </View>
   )

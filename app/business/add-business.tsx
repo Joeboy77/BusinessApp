@@ -20,7 +20,7 @@ export default function AddBusiness() {
   const [contact, setContact] = useState()
   const [website, setWebsite] = useState()
   const [about, setAbout] = useState()
-  const [category, setCategory] = useState()
+  const [category, setCategory] = useState(null)
   const [loading, setLoading] = useState(false)
 
   const {user} = useUser()
@@ -109,11 +109,13 @@ export default function AddBusiness() {
         returnKeyType='next'
         inputMode='text'
         placeholder='Business Name'
+        placeholderTextColor={Platform.OS=== 'ios'? Colors.GRAY: '#fff'}
         style={styles.input1}
          />
          <TextInput
          onChangeText={(v) => setAddress(v)}
          returnKeyType='next'
+         placeholderTextColor={Platform.OS=== 'ios'? Colors.GRAY: '#fff'}
         placeholder='Address'
         style={styles.input1}
          />
@@ -122,6 +124,7 @@ export default function AddBusiness() {
          returnKeyType='next'
          inputMode='numeric'
         placeholder='Contact'
+        placeholderTextColor={Platform.OS=== 'ios'? Colors.GRAY: '#fff'}
         style={styles.input1}
          />
          <TextInput
@@ -129,6 +132,7 @@ export default function AddBusiness() {
          inputMode='url'
          returnKeyType='next'
         placeholder='Website'
+        placeholderTextColor={Platform.OS=== 'ios'? Colors.GRAY: '#fff'}
         style={styles.input1}
          />
          <TextInput
@@ -137,6 +141,7 @@ export default function AddBusiness() {
          numberOfLines={5}
          multiline
         placeholder='About'
+        placeholderTextColor={Platform.OS=== 'ios'? Colors.GRAY: '#fff'}
         style={[styles.input1, {height: 100}]}
          />
        
@@ -145,7 +150,7 @@ export default function AddBusiness() {
           onValueChange ={(value) => setCategory(value)
           }
           items ={categoryList}
-          
+          value={category}
            />
          </View>
       </View>
@@ -186,7 +191,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderRadius: 5,
-    color: 'white',
+    color: '#fff',
     borderColor: Colors.GRAY,
     fontSize: 17,
     marginTop: 10,
