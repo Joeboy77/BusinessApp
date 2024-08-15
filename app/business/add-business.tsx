@@ -77,7 +77,7 @@ export default function AddBusiness() {
     setLoading(false)
   }
 
-  const saveBusinessDetail = async(imageUrl) => {
+  const saveBusinessDetail = async(imageUrl:any) => {
     await setDoc(doc(db,'BusinessList',Date.now().toString()), {
       name: name,
       address: address,
@@ -108,7 +108,7 @@ export default function AddBusiness() {
         onChangeText={(v) => setname(v)}
         returnKeyType='next'
         inputMode='text'
-        placeholder='Business Name'
+        placeholder='Name'
         placeholderTextColor={Platform.OS=== 'ios'? Colors.GRAY: '#fff'}
         style={styles.input1}
          />
@@ -150,6 +150,7 @@ export default function AddBusiness() {
           onValueChange ={(value) => setCategory(value)
           }
           items ={categoryList}
+          value={category}
            />
          </View>
       </View>
@@ -203,6 +204,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.GRAY,
     fontFamily: 'outfit',
     marginTop: 10,
+    width: 'auto'
   },
   btn: {
     padding: 15,
