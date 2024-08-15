@@ -4,11 +4,13 @@ import { useNavigation } from 'expo-router'
 import { ThemedText } from '@/components/ThemedText'
 import { Colors } from '@/constants/Colors'
 import * as ImagePicker from 'expo-image-picker';
+import RNPickerSelect from 'react-native-picker-select'
 
 
 export default function AddBusiness() {
   const navigation = useNavigation()
   const [image, setImage] = useState(null)
+  const [selectedLanguage, setSelectedLanguage] = useState();
 
   useEffect(() =>{
     navigation.setOptions({
@@ -67,6 +69,17 @@ export default function AddBusiness() {
         placeholder='About'
         style={[styles.input1, {height: 100}]}
          />
+         <View>
+          <RNPickerSelect
+          onValueChange ={(value:any) => console.log(value)
+          }
+          items ={[
+            {label: 'Football', value: 'football'},
+            {label: 'Football', value: 'football'},
+            {label: 'Football', value: 'football'}
+          ]}
+           />
+         </View>
       </View>
     </View>
   )
