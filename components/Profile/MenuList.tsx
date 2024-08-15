@@ -1,7 +1,8 @@
-import { View, Text, FlatList, Image, StyleSheet} from 'react-native'
+import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity} from 'react-native'
 import React from 'react'
 import { ThemedText } from '../ThemedText'
 import { Colors } from '@/constants/Colors'
+import { useRouter } from 'expo-router'
 
 export default function MenuList() {
 
@@ -10,7 +11,7 @@ export default function MenuList() {
           id: 1,
           name: 'Add Business',
           icon: require('../../assets/images/addIcon.png'),
-          path: ''
+          path: '/business/add-business'
         },
         {
             id: 2,
@@ -31,16 +32,22 @@ export default function MenuList() {
             path: ''
         }
       ]
+
+      const router = useRouter()
+
+      const onMenuClick = (item:any) => {
+        router.push(item.path)
+      }
   return (
     <View style={styles.container}>
       <FlatList
       data={menuList}
       numColumns={2}
       renderItem={({item, index}) =>(
-        <View style={styles.flatView}>
+        <TouchableOpacity onPress={() =>onMenuClick(item)} style={styles.flatView}>
             <Image source={item.icon} style={styles.icons}/>
             <ThemedText style={styles.name}>{item.name}</ThemedText>
-        </View>
+        </TouchableOpacity>
       )}
        />
        <ThemedText style={{fontFamily: 'outfit', textAlign: 'center', marginTop: 100, color: Colors.GRAY}}>Powered and Developed by JoeNessa</ThemedText>

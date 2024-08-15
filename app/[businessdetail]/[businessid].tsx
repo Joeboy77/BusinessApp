@@ -1,6 +1,6 @@
 import { View, Text, ActivityIndicator, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useLocalSearchParams } from 'expo-router'
+import { useLocalSearchParams, useNavigation } from 'expo-router'
 import { ThemedText } from '@/components/ThemedText'
 import { collection, doc, getDoc } from '@firebase/firestore'
 import {db} from '../../configs/FirebaseConfig'
@@ -19,6 +19,15 @@ export default function BusinessDetail() {
     useEffect(() => {
         GetBusinessDetailById()
     }, [])
+
+    const navigation = useNavigation()
+
+  useEffect(() =>{
+    navigation.setOptions({
+      headerShown: true,
+      headerTitle: ''
+    })
+  }, [])
 
     const GetBusinessDetailById = async() => {
         setLoading(true)
