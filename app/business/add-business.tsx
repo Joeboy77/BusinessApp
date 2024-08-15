@@ -150,7 +150,6 @@ export default function AddBusiness() {
           onValueChange ={(value) => setCategory(value)
           }
           items ={categoryList}
-          value={category}
            />
          </View>
       </View>
