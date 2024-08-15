@@ -1,4 +1,4 @@
-import { View, StyleSheet, Image, TouchableOpacity, TextInput, ToastAndroid} from 'react-native'
+import { View, StyleSheet, Image, TouchableOpacity, TextInput, ToastAndroid, ActivityIndicator, KeyboardAvoidingView, Platform} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from 'expo-router'
 import { ThemedText } from '@/components/ThemedText'
@@ -21,6 +21,7 @@ export default function AddBusiness() {
   const [website, setWebsite] = useState()
   const [about, setAbout] = useState()
   const [category, setCategory] = useState()
+  const [loading, setLoading] = useState(false)
 
   const {user} = useUser()
 
@@ -57,6 +58,7 @@ export default function AddBusiness() {
   }
 
   const onAddNewBus = async() => {
+    setLoading(true)
     const fileName = Date.now().toString()+".jpg"
     const res = await fetch(image)
     const blob = await res.blob()
@@ -72,10 +74,11 @@ export default function AddBusiness() {
         saveBusinessDetail(downloadUrl)
       })
     })
+    setLoading(false)
   }
 
   const saveBusinessDetail = async(imageUrl) => {
-    await setDoc(doc(db,'BusinessDetail',Date.now.toString()), {
+    await setDoc(doc(db,'BusinessList',Date.now().toString()), {
       name: name,
       address: address,
       contact: contact,
@@ -87,12 +90,14 @@ export default function AddBusiness() {
       userImage: user?.imageUrl,
       imageUrl: imageUrl
     })
+    setLoading(false)
     ToastAndroid.show('New Business Added...',ToastAndroid.LONG)
   }
   return (
     <View style={styles.container}>
       <ThemedText style={styles.title}>Add Business</ThemedText>
       <ThemedText style={styles.fill}>Please provide all details</ThemedText>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios'? 'padding' : 'height'} style={styles.avoid}>
       <TouchableOpacity onPress={() => onImagePick()} style={styles.touchable}>
        {!image? <Image source={require('../../assets/images/cam.png')} style={styles.camImg}/>
        :
@@ -142,9 +147,12 @@ export default function AddBusiness() {
            />
          </View>
       </View>
-      <TouchableOpacity onPress={() =>onAddNewBus()} style={styles.btn}>
-        <ThemedText style={{textAlign: 'center', fontFamily: 'outfit-meduim'}}>Add New Business</ThemedText>
+      <TouchableOpacity onPress={() =>onAddNewBus()} style={styles.btn} disabled={loading}>
+        {loading?
+        <ActivityIndicator size={'large'} color={'#fff'}/>:
+        <ThemedText style={{textAlign: 'center', fontFamily: 'outfit-meduim'}}>Add New Business</ThemedText>}
       </TouchableOpacity>
+      </KeyboardAvoidingView>
     </View>
   )
 }
@@ -176,7 +184,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderRadius: 5,
-    color: 'black',
+    color: 'white',
     borderColor: Colors.GRAY,
     fontSize: 17,
     marginTop: 10,
@@ -195,5 +203,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.PRIMARY,
     borderRadius: 6,
     marginTop: 30
+  }, 
+  avoid: {
+    height: 900
   }
 })
