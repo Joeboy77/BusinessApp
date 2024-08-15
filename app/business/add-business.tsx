@@ -38,8 +38,34 @@ export default function AddBusiness() {
       </TouchableOpacity>
       <View>
         <TextInput
-        placeholder='Name'
+        returnKeyType='next'
+        inputMode='text'
+        placeholder='Business Name'
         style={styles.input1}
+         />
+         <TextInput
+         returnKeyType='next'
+        placeholder='Address'
+        style={styles.input1}
+         />
+         <TextInput
+         returnKeyType='next'
+         inputMode='numeric'
+        placeholder='Contact'
+        style={styles.input1}
+         />
+         <TextInput
+         inputMode='email'
+         returnKeyType='next'
+        placeholder='Email'
+        style={styles.input1}
+         />
+         <TextInput
+         returnKeyType='done'
+         numberOfLines={5}
+         multiline
+        placeholder='About'
+        style={[styles.input1, {height: 100}]}
          />
       </View>
     </View>
@@ -65,10 +91,18 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   camFeed: {
-    width: 300,
-    height: 300,
+    width: 200,
+    height: 200,
   },
   input1: {
-    padding
+    width: 'auto',
+    padding: 10,
+    borderWidth: 1,
+    borderRadius: 5,
+    color: 'black',
+    borderColor: Colors.GRAY,
+    fontSize: 17,
+    marginTop: 10,
+    fontFamily: 'outfit'
   }
 })
