@@ -35,7 +35,7 @@ export default function MenuList() {
 
       const router = useRouter()
 
-      const onMenuClick = (item:any) => {
+      const onMenuClick = (item) => {
         router.push(item.path)
       }
   return (

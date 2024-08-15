@@ -20,7 +20,7 @@ export default function AddBusiness() {
   const [contact, setContact] = useState()
   const [website, setWebsite] = useState()
   const [about, setAbout] = useState()
-  const [category, setCategory] = useState()
+  const [category, setCategory] = useState(null)
   const [loading, setLoading] = useState(false)
 
   const {user} = useUser()
@@ -78,7 +78,7 @@ export default function AddBusiness() {
   }
 
   const saveBusinessDetail = async(imageUrl) => {
-    await setDoc(doc(db,'BusinessList',Date.now().toString()), {
+    await setDoc(doc(db,'BusinessList',Date.now.toString()), {
       name: name,
       address: address,
       contact: contact,
@@ -97,7 +97,7 @@ export default function AddBusiness() {
     <View style={styles.container}>
       <ThemedText style={styles.title}>Add Business</ThemedText>
       <ThemedText style={styles.fill}>Please provide all details</ThemedText>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios'? 'padding' : 'height'} style={styles.avoid}>
+      
       <TouchableOpacity onPress={() => onImagePick()} style={styles.touchable}>
        {!image? <Image source={require('../../assets/images/cam.png')} style={styles.camImg}/>
        :
@@ -139,6 +139,7 @@ export default function AddBusiness() {
         placeholder='About'
         style={[styles.input1, {height: 100}]}
          />
+       
          <View style={styles.selector}>
           <RNPickerSelect
           onValueChange ={(value) => setCategory(value)
@@ -152,7 +153,7 @@ export default function AddBusiness() {
         <ActivityIndicator size={'large'} color={'#fff'}/>:
         <ThemedText style={{textAlign: 'center', fontFamily: 'outfit-meduim'}}>Add New Business</ThemedText>}
       </TouchableOpacity>
-      </KeyboardAvoidingView>
+      
     </View>
   )
 }
@@ -204,7 +205,4 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginTop: 30
   }, 
-  avoid: {
-    height: 900
-  }
 })
